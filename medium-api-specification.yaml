@@ -32,7 +32,32 @@ paths:
         401:
           description: The `accessToken` is invalid or has been revoked.
         
-          
+  /users/{userId}/publication:
+    get:
+      summary: User's publications
+      description: Returns a full list of publications that the user is related to in some way. This includes all publications the user is subscribed to, writes to, or edits.
+      tags:
+        - Publication
+      parameters:
+        - in: path
+          name: userId
+          description: A unique identifier for the user.
+          required: true
+          type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: "#/definitions/PublicationResponse"
+        401:
+          description: The `accessToken` is invalid, lacks the `listPublications` scope or has been revoked.
+        403:
+          description: The request attempts to list publications for another user.
+        
+        
+        
+            
+    
         
       
 definitions:
@@ -61,6 +86,37 @@ definitions:
       imageUrl:
         type: string
         description: The URL to the user’s avatar on Medium
+  
+  
+  PublicationResponse:
+    title: Publication List Container
+    description: Container object for publication list.
+    properties: 
+      data:
+        type: array
+        items:
+          $ref: "#/definitions/Publication"
+  
+  Publication:
+    type: object
+    title: Publication Info
+    description: Publications provide a way for authors to work collaboratively within a common narrative framework, brand or point of view.
+    properties:
+      id:
+        type: string
+        description: A unique identifier for the publication.
+      name:
+        type: string
+        description: The publication’s name on Medium.
+      description:
+        type: string
+        description: Short description of the publication
+      url:
+        type: string
+        description: The URL to the publication’s homepage
+      imageUrl:
+        type: string
+        description: The URL to the publication’s image/logo
         
         
         
