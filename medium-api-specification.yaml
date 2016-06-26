@@ -54,11 +54,24 @@ paths:
         403:
           description: The request attempts to list publications for another user.
         
-        
-        
-            
+  /publications/{publicationId}/contributors:
+    get:
+      summary: Contributors of Publication
+      description: This endpoint returns a list of contributors for a given publication. In other words, a list of Medium users who are allowed to publish under a publication, as well as a description of their exact role in the publication (for now, either an editor or a writer).
+      parameters:
+        - in: path
+          name: publicationId
+          description: A unique identifier for the publication.
+          required: true
+          type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: "#definitions/ContibutorResponse"
     
         
+
       
 definitions:
   UserResponse:
@@ -118,7 +131,32 @@ definitions:
         type: string
         description: The URL to the publication’s image/logo
         
-        
-        
-        
+
+  ContibutorResponse:
+    title: Contributors list for a publication
+    description: list of contributors for a given publication
+    properties: 
+      data:
+        type: array
+        items:
+          $ref: "#/definitions/Contibutor"
+          
+  Contibutor:
+    type: object
+    title: Contributor
+    description: Contibutor 
+    properties:
+      publicationId:
+        type: string
+        description: An ID for the publication. This can be lifted from response of publications above
+      userId:
+        type: string
+        description: A user ID of the contributor.
+      role:
+        type: string
+        description: Role of the user identified by userId in the publication identified by `publicationId`. *editor* or *writer*
+
+
+
+
         
