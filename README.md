@@ -14,6 +14,6 @@ Best way to preview or test API is using **Swagger UI**, **Swagger Editor** or *
  * Postman - Good for preview and testing API endpoints. More info at [https://www.getpostman.com/](https://www.getpostman.com/)
 
 ### Screenshots
- * Swagger UI [[https://github.com/amardeshbd/medium-api-specification/blob/master/resources/screenshot_openapi_swagger-ui.png|alt=Swagger UI]]
- * Swagger Editor [[https://github.com/amardeshbd/medium-api-specification/blob/master/resources/screenshot_openapi_swagger-editor.png|alt=Swagger Editor]]
- * Postman [[https://github.com/amardeshbd/medium-api-specification/blob/master/resources/screenshot_openapi_postman.png|alt=Postman]]
+ * Swagger UI ![Swagger UI](https://github.com/amardeshbd/medium-api-specification/blob/master/resources/screenshot_openapi_swagger-ui.png)
+ * Swagger Editor ![Swagger Editor](https://github.com/amardeshbd/medium-api-specification/blob/master/resources/screenshot_openapi_swagger-editor.png)
+ * Postman ![Postman](https://github.com/amardeshbd/medium-api-specification/blob/master/resources/screenshot_openapi_postman.png)
