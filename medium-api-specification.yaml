@@ -1,0 +1,68 @@
+swagger: "2.0"
+info:
+  description: |
+    Medium’s unofficial API documentation using OpenAPI specification.
+
+    [Original API document](https://github.com/Medium/medium-api-docs) can also be viewed for most up to date API spec.
+
+
+  version: "1.0.0"
+  title: Medium.com - Unofficial API Spec
+  termsOfService: https://medium.com/@feerst/2b405a832a2f
+  contact:
+    name: https://medium.com/developers/about
+host: api.medium.com
+basePath: /v1
+schemes:
+  - https
+paths:
+  /me:
+    get:
+      tags:
+        - user
+      summary: User details
+      description: Getting the authenticated user's details
+      produces:
+        - application/json
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: "#/definitions/UserResponse"
+        401:
+          description: The `accessToken` is invalid or has been revoked.
+        
+          
+        
+      
+definitions:
+  UserResponse:
+    type: object
+    title: User Container
+    description: Container object for user info
+    properties:
+      data:
+        $ref: "#/definitions/User"
+  User:
+    type: object
+    properties:
+      id:
+        type: string
+        description: A unique identifier for the user.
+      username:
+        type: string
+        description: The user’s username on Medium.
+      name:
+        type: string
+        description: The user’s name on Medium.
+      url:
+        type: string
+        description: The URL to the user’s profile on Medium
+      imageUrl:
+        type: string
+        description: The URL to the user’s avatar on Medium
+        
+        
+        
+        
+        
