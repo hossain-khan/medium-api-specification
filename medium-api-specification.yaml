@@ -83,6 +83,7 @@ paths:
       description: Creates a post on the authenticated user’s profile.
       tags:
         - Users
+        - Posts
       parameters:
         - in: path
           name: authorId
@@ -108,7 +109,43 @@ paths:
           description: The user does not have permission to publish, or the authorId in the request path points to wrong/non-existent user.
         
     
-    
+  /publications/{publicationId}/posts:
+    post:
+      summary: Create Publication Post
+      description: |
+        creating a post and associating it with a publication on Medium. The request also shows this association, considering posts a collection of resources under a publication
+        
+        There are additional rules around publishing that each request to this API must respect:
+          - If the authenticated user is an 'editor' for the publication, they can create posts with any publish status. Posts published as 'public' or 'unlisted' will appear in collection immediately, while posts created as 'draft' will remain in pending state under publication.
+          - If the authenticated user is a 'writer' for the chosen publication, they can only create a post as a 'draft'. That post will remain in pending state under publication until an editor for the publication approves it.
+          - If the authenticated user is neither a 'writer' nor an 'editor', they are not allowed to create any posts in a publication.
+
+      tags:
+        - Posts
+        - Publications
+      parameters:
+        - in: path
+          name: publicationId
+          description: Here publicationId is the id of the publication the post is being created under. The publicationId can be acquired from the API for listing user’s publications.
+          required: true
+          type: string
+        - in: body
+          name: body
+          description: Creates a post for publication.
+          required: true
+          schema:
+            $ref: "#/definitions/Post"
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/PostDetails'
+        400:
+          description: Required fields were invalid, not specified.
+        401:
+          description: The `accessToken` is invalid or has been revoked.
+        403:
+          description: The `publicationId` in request path doesn’t point to a publication that the user can publish into.
         
 
       
@@ -254,19 +291,6 @@ definitions:
         - "Liverpool"
       publishStatus: "public"
 
-  PostPublication:
-    title: Creating a post under a publication
-    description: |
-      The definition of request data is equal to the regular call to create a post. The response is identical except for adding one additional field.
-    allOf:
-    - $ref: '#/definitions/Post'
-    - type: object
-      required:
-      - publicationId
-      properties:
-        publicationId:
-          type: string
-          description: ID of the publication this post was created under. This matches the publication ID requested in the URL of the request
   
   
   PostDetails:
