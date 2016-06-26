@@ -3,27 +3,49 @@ info:
   description: |
     Medium’s unofficial API documentation using OpenAPI specification.
 
-    [Original API document](https://github.com/Medium/medium-api-docs) can also be viewed for most up to date API spec.
+    # Official API
+    Official API document can also be viewed for most up to date API spec at [https://github.com/Medium/medium-api-docs](https://github.com/Medium/medium-api-docs).
+    
+    Developer resource - [https://medium.com/developers](https://medium.com/developers)
 
 
   version: "1.0.0"
   title: Medium.com - Unofficial API Spec
   termsOfService: https://medium.com/@feerst/2b405a832a2f
   contact:
-    name: https://medium.com/developers/about
+    name: Hossain Khan
+    url: https://github.com/amardeshbd/medium-api-specification
+
+# All requests are made to endpoints beginning: https://api.medium.com/v1
 host: api.medium.com
 basePath: /v1
+
+# All requests must be secure, i.e. https, not http.
 schemes:
   - https
-  
+
+# Bearer authentication is required.
+securityDefinitions:
+  Bearer:
+    type: apiKey
+    name: Authorization
+    in: header  
+
+# TODO - define "oauth2" spec
+
+# format of the responses to the client (Accepts)
+produces:
+  - application/json
 
 paths:
   /me:
     get:
+      summary: User details
+      description: Returns details of the user who has granted permission to the application.
       tags:
         - Users
-      summary: User details
-      description: Getting the authenticated user's details
+      security:
+        - Bearer: []
       produces:
         - application/json
       responses:
@@ -34,12 +56,16 @@ paths:
         401:
           description: The `accessToken` is invalid or has been revoked.
         
-  /users/{userId}/publication:
+  /users/{userId}/publications:
     get:
       summary: User's publications
       description: Returns a full list of publications that the user is related to in some way. This includes all publications the user is subscribed to, writes to, or edits.
       tags:
-        - Publication
+        - Publications
+      security:
+        - Bearer: []
+      produces:
+        - application/json
       parameters:
         - in: path
           name: userId
@@ -63,6 +89,10 @@ paths:
       tags:
         - Publications
         - Users
+      security:
+        - Bearer: []
+      produces:
+        - application/json
       parameters:
         - in: path
           name: publicationId
@@ -79,11 +109,17 @@ paths:
 
   /users/{authorId}/posts:
     post:
-      summary: Create Post
+      summary: Create User Post
       description: Creates a post on the authenticated user’s profile.
       tags:
         - Users
         - Posts
+      security:
+        - Bearer: []
+      produces:
+        - application/json
+      consumes:
+        - application/json
       parameters:
         - in: path
           name: authorId
@@ -123,6 +159,12 @@ paths:
       tags:
         - Posts
         - Publications
+      security:
+        - Bearer: []
+      produces:
+        - application/json
+      consumes:
+        - application/json
       parameters:
         - in: path
           name: publicationId
