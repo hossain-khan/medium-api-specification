@@ -3,14 +3,18 @@ info:
   description: |
     Medium’s unofficial API documentation using OpenAPI specification.
 
-    [Original API document](https://github.com/Medium/medium-api-docs) can also be viewed for most up to date API spec.
+    # Official API
+    Official API document can also be viewed for most up to date API spec at [https://github.com/Medium/medium-api-docs](https://github.com/Medium/medium-api-docs).
+    
+    Developer resource - [https://medium.com/developers](https://medium.com/developers)
 
 
   version: "1.0.0"
   title: Medium.com - Unofficial API Spec
   termsOfService: https://medium.com/@feerst/2b405a832a2f
   contact:
-    name: https://medium.com/developers/about
+    name: Hossain Khan
+    url: https://github.com/amardeshbd/medium-api-specification
 host: api.medium.com
 basePath: /v1
 schemes:
@@ -20,10 +24,10 @@ schemes:
 paths:
   /me:
     get:
+      summary: User details
+      description: Returns details of the user who has granted permission to the application.
       tags:
         - Users
-      summary: User details
-      description: Getting the authenticated user's details
       produces:
         - application/json
       responses:
@@ -39,7 +43,9 @@ paths:
       summary: User's publications
       description: Returns a full list of publications that the user is related to in some way. This includes all publications the user is subscribed to, writes to, or edits.
       tags:
-        - Publication
+        - Publications
+      produces:
+        - application/json
       parameters:
         - in: path
           name: userId
@@ -63,6 +69,8 @@ paths:
       tags:
         - Publications
         - Users
+      produces:
+        - application/json
       parameters:
         - in: path
           name: publicationId
@@ -79,11 +87,15 @@ paths:
 
   /users/{authorId}/posts:
     post:
-      summary: Create Post
+      summary: Create User Post
       description: Creates a post on the authenticated user’s profile.
       tags:
         - Users
         - Posts
+      produces:
+        - application/json
+      consumes:
+        - application/json
       parameters:
         - in: path
           name: authorId
@@ -123,6 +135,10 @@ paths:
       tags:
         - Posts
         - Publications
+      produces:
+        - application/json
+      consumes:
+        - application/json
       parameters:
         - in: path
           name: publicationId
