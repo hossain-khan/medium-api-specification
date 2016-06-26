@@ -1,3 +1,5 @@
+[![https://img.shields.io/badge/OpenAPI-valid-brightgreen.svg](https://img.shields.io/badge/OpenAPI-valid-brightgreen.svg)](http://online.swagger.io/validator?url=https://raw.githubusercontent.com/amardeshbd/medium-api-specification/master/medium-api-specification.yaml)
+
 # Medium.com API Specification
 API spec for medium.com using OpenAPI Specification _(fka [Swagger](http://swagger.io/) 2.0)_
 
