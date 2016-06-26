@@ -56,7 +56,7 @@ paths:
         401:
           description: The `accessToken` is invalid or has been revoked.
         
-  /users/{userId}/publication:
+  /users/{userId}/publications:
     get:
       summary: User's publications
       description: Returns a full list of publications that the user is related to in some way. This includes all publications the user is subscribed to, writes to, or edits.
