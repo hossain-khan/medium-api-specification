@@ -15,11 +15,13 @@ host: api.medium.com
 basePath: /v1
 schemes:
   - https
+  
+
 paths:
   /me:
     get:
       tags:
-        - user
+        - Users
       summary: User details
       description: Getting the authenticated user's details
       produces:
@@ -58,6 +60,9 @@ paths:
     get:
       summary: Contributors of Publication
       description: This endpoint returns a list of contributors for a given publication. In other words, a list of Medium users who are allowed to publish under a publication, as well as a description of their exact role in the publication (for now, either an editor or a writer).
+      tags:
+        - Publications
+        - Users
       parameters:
         - in: path
           name: publicationId
@@ -68,7 +73,41 @@ paths:
         200:
           description: OK
           schema:
-            $ref: "#definitions/ContibutorResponse"
+            $ref: "#/definitions/ContibutorResponse"
+        401:
+          description: The `accessToken` is invalid or has been revoked.
+
+  /users/{authorId}/posts:
+    post:
+      summary: Create Post
+      description: Creates a post on the authenticated user’s profile.
+      tags:
+        - Users
+      parameters:
+        - in: path
+          name: authorId
+          description: authorId is the user id of the authenticated user.
+          required: true
+          type: string
+        - in: body
+          name: body
+          description: Creates a post for user.
+          required: true
+          schema:
+            $ref: "#/definitions/Post"
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/PostDetails'
+        400:
+          description: Required fields were invalid, not specified.
+        401:
+          description: The `accessToken` is invalid or has been revoked.
+        403:
+          description: The user does not have permission to publish, or the authorId in the request path points to wrong/non-existent user.
+        
+    
     
         
 
@@ -157,6 +196,124 @@ definitions:
         description: Role of the user identified by userId in the publication identified by `publicationId`. *editor* or *writer*
 
 
+  Post:
+    type: object
+    title: Post
+    required:
+      - title
+      - contentFormat
+      - content
+    properties:
+      title:
+        type: string
+        description: The title of the post. Note that this title is used for SEO and when rendering the post as a listing, but will not appear in the actual post—for that, the title must be specified in the content field as well. Titles longer than 100 characters will be ignored. In that case, a title will be synthesized from the first content in the post when it is published.
+      contentFormat:
+        type: string
+        description: The format of the "content" field. There are two valid values, "html", and "markdown"
+      content:
+        type: string
+        description: The body of the post, in a valid, semantic, HTML fragment, or Markdown. Further markups may be supported in the future. For a full list of accepted HTML tags, see here. If you want your title to appear on the post page, you must also include it as part of the post content.
+      tags:
+        type: array
+        items:
+          type: string
+        description: Tags to classify the post. Only the first three will be used. Tags longer than 25 characters will be ignored.
+      canonicalUrl:
+        type: string
+        description: The original home of this content, if it was originally published elsewhere.
+      publishStatus:
+        type: string
+        default: public
+        enum:
+        - public
+        - draft
+        - unlisted
+        description: The status of the post. Valid values are `public`, `draft`, or `unlisted`. The default is `public`.
+      license:
+        type: string
+        default: all-rights-reserved
+        enum:
+        - all-rights-reserved
+        - cc-40-by
+        - cc-40-by-sa
+        - cc-40-by-nd
+        - cc-40-by-nc
+        - cc-40-by-nc-nd
+        - cc-40-by-nc-sa
+        - cc-40-zero
+        - public-domain
+        description: The license of the post. Valid values are `all-rights-reserved`, `cc-40-by`, `cc-40-by-sa`, `cc-40-by-nd`, `cc-40-by-nc`, `cc-40-by-nc-nd`, `cc-40-by-nc-sa`, `cc-40-zero`, `public-domain`. The default is `all-rights-reserved`.
+    example:
+      title: "Liverpool FC"
+      contentFormat: "html"
+      content: "<h1>Liverpool FC</h1><p>You’ll never walk alone.</p>"
+      canonicalUrl: "http://jamietalbot.com/posts/liverpool-fc"
+      tags: 
+        - "football"
+        - "sport"
+        - "Liverpool"
+      publishStatus: "public"
 
-
+  PostPublication:
+    title: Creating a post under a publication
+    description: |
+      The definition of request data is equal to the regular call to create a post. The response is identical except for adding one additional field.
+    allOf:
+    - $ref: '#/definitions/Post'
+    - type: object
+      required:
+      - publicationId
+      properties:
+        publicationId:
+          type: string
+          description: ID of the publication this post was created under. This matches the publication ID requested in the URL of the request
+  
+  
+  PostDetails:
+    title: Post Details
+    description: Details of Post
+    properties:
+      id:
+        type: string
+        description: A unique identifier for the post.
+      title:
+        type: string
+        description: The post’s title
+      authorId:
+        type: string
+        description: The userId of the post’s author
+      tags:
+        type: array
+        items:
+          type: string
+        description: The post’s tags
+      url:
+        type: string
+        description: The URL of the post on Medium 
+      canonicalUrl:
+        type: string
+        description: The canonical URL of the post. If canonicalUrl was not specified in the creation of the post, this field will not be present.
+      publishStatus:
+        type: string
+        description: The publish status of the post.
+      publishedAt:
+        type: string
+        format: date
+        description: The post’s published date. If created as a draft, this field will not be present. 
+      license:
+        type: string
+        enum:
+        - all-rights-reserved
+        - cc-40-by
+        - cc-40-by-sa
+        - cc-40-by-nd
+        - cc-40-by-nc
+        - cc-40-by-nc-nd
+        - cc-40-by-nc-sa
+        - cc-40-zero
+        - public-domain
+        description: The license of the post.
+      licenseUrl:
+        type: string
+        description: The URL to the license of the post.
         
