@@ -38,7 +38,7 @@ testOpenApiSpecValidity() {
     expectedOutputSize=${#expectedOutput} 
     
     specUrl="$githubRawResourceBaseUrl/$githubUsername/$githubProjectId/$BRANCH/$openApiSpecFileName"
-    validationOutput=$(curl $specUrl)
+    validationOutput=$(curl "http://online.swagger.io/validator/debug?url=$specUrl")
     validationOutputSize=${#validationOutput}
     echo "Testing swagger validation - current output is: $validationOutput"
     echo "Expected valid size: $expectedOutputSize, current output: $validationOutputSize"
