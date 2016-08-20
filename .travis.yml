@@ -1,0 +1,7 @@
+language: bash
+
+before_script:
+    - validationOutput=$(curl http://online.swagger.io/validator/debug?url=http://petstore.swagger.io/v2/swagger.json)
+
+script:
+    - bash api-spec_validation_test.sh
