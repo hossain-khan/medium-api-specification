@@ -9,7 +9,8 @@ setUp()
 }
 
 testEquality() {
-	assertEquals 1 1
+	echo "Testing swagger validation - current output is: $validationOutput"
+	assertEquals $validationOutput "{}"
 }
 
 # Execute shunit2 to run the tests
