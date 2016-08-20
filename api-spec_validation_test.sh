@@ -5,6 +5,10 @@ setUp()
   originalPath=$PATH
   PATH=$PWD:$PATH
   
+
+  echo "Validating ENV Variables: TRAVIS_BRANCH=$TRAVIS_BRANCH, PR=$PR, BRANCH=$BRANCH"
+  echo "OpenAPI Specification File=$OPEN_API_SPEC_FILE"
+  echo ""
   echo "Executing tests... ^_^"
 }
 
