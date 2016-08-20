@@ -1,4 +1,4 @@
-[![https://img.shields.io/badge/OpenAPI-valid-brightgreen.svg](https://img.shields.io/badge/OpenAPI-valid-brightgreen.svg)](http://online.swagger.io/validator?url=https://raw.githubusercontent.com/amardeshbd/medium-api-specification/master/medium-api-specification.yaml)
+[![https://img.shields.io/badge/OpenAPI-valid-brightgreen.svg](https://img.shields.io/badge/OpenAPI-valid-brightgreen.svg)](http://online.swagger.io/validator?url=https://raw.githubusercontent.com/amardeshbd/medium-api-specification/master/medium-api-specification.yaml) [![Build Status](https://travis-ci.org/amardeshbd/medium-api-specification.svg)](https://travis-ci.org/amardeshbd/medium-api-specification)
 
 Medium.com API Specification
 ================================
