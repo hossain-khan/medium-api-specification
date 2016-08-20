@@ -12,10 +12,14 @@ setUp()
   echo "Executing tests... ^_^"
 }
 
-testEquality() {
+testOpenApiSpecValidity() {
 	validationOutput=$(curl http://online.swagger.io/validator/debug?url=http://petstore.swagger.io/v2/swagger.json)
 	echo "Testing swagger validation - current output is: $validationOutput"
-	assertEquals $validationOutput "{}"
+	assertEquals "Validation failed" "{}" "$validationOutput"
+}
+
+testFailCase() {
+  assertEquals 1 99
 }
 
 # Execute shunit2 to run the tests (downloaded via `.travis.yaml`)
