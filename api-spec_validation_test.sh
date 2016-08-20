@@ -33,6 +33,7 @@ testOpenApiSpecValidity() {
     expectedOutput="{}"
     expectedOutputSize=${#expectedOutput} 
     specUrl="$githubRawResourceBaseUrl/$githubUsername/$githubProjectId/$BRANCH/$openApiSpecFileName"
+    # Now prepare the open API spec file to use the online validator service.
     validationUrl="http://online.swagger.io/validator/debug?url=$specUrl"
 
     echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
