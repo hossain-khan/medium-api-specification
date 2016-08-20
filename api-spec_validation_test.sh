@@ -1,7 +1,16 @@
 #!/bin/sh
 
+setUp()
+{
+  originalPath=$PATH
+  PATH=$PWD:$PATH
+  
+  echo "Executing tests... ^_^"
+}
+
 testEquality() {
 	assertEquals 1 1
 }
 
-. shunit2-2.0.3/src/shell/shunit2
+# Execute shunit2 to run the tests
+. shunit2-2.1.6/src/shunit2
