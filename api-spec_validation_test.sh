@@ -10,6 +10,7 @@ setUp()
   githubUsername=amardeshbd
   githubProjectId=medium-api-specification
   openApiSpecFileName=medium-api-specification.yaml
+  
 
   
   echo "Executing tests... ^_^"
@@ -29,16 +30,17 @@ setUp()
 # shunit2:ERROR 1: Validation failed {} : {"schemaValidationMessages":[{"level":"error","message":"Can't 4: read
 #
 testOpenApiSpecValidity() {
-  echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
-  echo "Validating ENV Variables: TRAVIS_BRANCH=$TRAVIS_BRANCH, PR=$PR, BRANCH=$BRANCH"
-  echo "OpenAPI Specification File=$OPEN_API_SPEC_FILE"
-  echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
-    
     expectedOutput="{}"
     expectedOutputSize=${#expectedOutput} 
-    
     specUrl="$githubRawResourceBaseUrl/$githubUsername/$githubProjectId/$BRANCH/$openApiSpecFileName"
-    validationOutput=$(curl "http://online.swagger.io/validator/debug?url=$specUrl")
+    validationUrl="http://online.swagger.io/validator/debug?url=$specUrl"
+
+    echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+    echo "Validating ENV Variables: TRAVIS_BRANCH=$TRAVIS_BRANCH, PR=$PR, BRANCH=$BRANCH"
+    echo "OpenAPI Specification File=$validationUrl"
+    echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"    
+
+    validationOutput=$(curl $validationUrl)
     validationOutputSize=${#validationOutput}
     echo "Testing swagger validation - current output is: $validationOutput"
     echo "Expected valid size: $expectedOutputSize, current output: $validationOutputSize"
@@ -46,6 +48,7 @@ testOpenApiSpecValidity() {
     
     assertEquals "Validation failed - service unavailable or error found." $expectedOutputSize $validationOutputSize
 }
+
 
 # Execute shunit2 to run the tests (downloaded via `.travis.yaml`)
 . shunit2-2.1.6/src/shunit2
