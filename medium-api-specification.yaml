@@ -24,14 +24,40 @@ basePath: /v1
 schemes:
   - https
 
-# Bearer authentication is required.
+# List of security definitions used for API access
 securityDefinitions:
-  Bearer:
+  BearerToken:
     type: apiKey
+    description: |
+        Self-issued access tokens (described in user-facing copy as integration tokens) are explicitly designed for desktop integrations where implementing browser-based authentication is non-trivial, or software like plugins where it is impossible to secure a client secret. You should not request that a user give you an integration token if you don’t meet these criteria. Users will be cautioned within Medium to treat integration tokens like passwords, and dissuaded from making them generally available.
+        
+        Users can generate an access token from the [Settings page](https://medium.com/me/settings) of their Medium account.
+        
+        You should instruct your user to visit this URL and generate an integration token from the Integration Tokens section. You should suggest a description for this token - typically the name of your product or feature - and use it consistently for all users.
+        
+        Self-issued access tokens currently grant the `basicProfile` and `publishPost` scope. A future iteration of the API will require a user to select the scope they wish to grant access to.
+        
+        Self-issued access tokens do not expire, though they may be revoked by the user at any time.
     name: Authorization
     in: header  
+  OauthSecurity:
+    type: oauth2
+    description: First you must register an application on Medium. Then we will supply you a clientId and a clientSecret with which you may access Medium’s API. Each integration should have its own clientId and clientSecret. The clientSecret should be treated like a password and stored securely.
+    authorizationUrl: https://medium.com/m/oauth/authorize
+    tokenUrl: https://medium.com/v1/tokens
+    flow: accessCode
+    scopes:
+      basicProfile: Grants basic access to a user’s profile (not including their email).
+      listPublications: Grants the ability to list publications related to the user.
+      publishPost: Grants the ability to publish a post to the user’s profile.
+      uploadImage: |
+        Grants the ability to upload an image for use within a Medium post. 
+        
+        NOTE - This is an **extended permission**.
+        
+        Integrations are not permitted to request extended scope from users without explicit prior permission from Medium. Attempting to request these permissions through the standard user authentication flow will result in an error if extended scope has not been authorized for an integration.
+      
 
-# TODO - define "oauth2" spec
 
 # format of the responses to the client (Accepts)
 produces:
@@ -45,7 +71,9 @@ paths:
       tags:
         - Users
       security:
-        - Bearer: []
+        - BearerToken: []
+        - OauthSecurity:
+          - basicProfile
       produces:
         - application/json
       responses:
@@ -63,7 +91,9 @@ paths:
       tags:
         - Publications
       security:
-        - Bearer: []
+        - BearerToken: []
+        - OauthSecurity:
+          - listPublications
       produces:
         - application/json
       parameters:
@@ -90,7 +120,9 @@ paths:
         - Publications
         - Users
       security:
-        - Bearer: []
+        - BearerToken: []
+        - OauthSecurity:
+          - listPublications
       produces:
         - application/json
       parameters:
@@ -115,7 +147,9 @@ paths:
         - Users
         - Posts
       security:
-        - Bearer: []
+        - BearerToken: []
+        - OauthSecurity:
+          - publishPost
       produces:
         - application/json
       consumes:
@@ -160,7 +194,9 @@ paths:
         - Posts
         - Publications
       security:
-        - Bearer: []
+        - BearerToken: []
+        - OauthSecurity:
+          - publishPost
       produces:
         - application/json
       consumes:
@@ -189,7 +225,8 @@ paths:
         403:
           description: The `publicationId` in request path doesn’t point to a publication that the user can publish into.
         
-
+# TODO Missing API for image endpoint
+# See https://github.com/amardeshbd/medium-api-specification/issues/7
       
 definitions:
   UserResponse:
