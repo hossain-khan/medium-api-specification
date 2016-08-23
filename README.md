@@ -13,13 +13,15 @@ Preview/Test API
 Best way to preview or test API is using **Swagger UI**, **Swagger Editor** or **Postman**. 
 > NOTE: You should generate **self-issued-access-tokens** by following instruction on [official-guide](https://github.com/Medium/medium-api-docs#22-self-issued-access-tokens) to access API endpoints.
 
- * `Swagger UI` - Good for preview API doc. You can [download](https://github.com/swagger-api/swagger-ui) Swagger UI distribution, or open their **[demo](http://petstore.swagger.io/)** site and load the specification URI ([https://raw.githubusercontent.com/amardeshbd/medium-api-specification/master/medium-api-specification.yaml](https://raw.githubusercontent.com/amardeshbd/medium-api-specification/master/medium-api-specification.yaml))
- * `Swagger Editor` - Good for preview, live editor and client code generation. Open their **[demo](http://editor.swagger.io/)** site and open specification URL.
+ * `Swagger UI` **(Recommended)** - Good for preview API doc. You can [download](https://github.com/swagger-api/swagger-ui) Swagger UI distribution, or open their **[demo](http://petstore.swagger.io/)** site and load the specification URI ([https://raw.githubusercontent.com/amardeshbd/medium-api-specification/master/medium-api-specification.yaml](https://raw.githubusercontent.com/amardeshbd/medium-api-specification/master/medium-api-specification.yaml))
+ * `Swagger Editor` - Good for preview, live editor support and API client library code generation support. Open their **[swagger editor](http://editor.swagger.io/)** and load the URL specification above.
  * `Postman` - Good for preview and testing API endpoints. More info at [https://www.getpostman.com/](https://www.getpostman.com/)
 
 ### Generating Client SDK
-The [swagger-codegen](https://github.com/swagger-api/swagger-codegen) tool can generate client-sdk for different languages. Here are few examples: 
- * Android: [medium-api-android-sample](https://github.com/amardeshbd/medium-api-android-sample)
+The [swagger-codegen](https://github.com/swagger-api/swagger-codegen) tool can generate client-sdk for different languages. 
+
+Here are few examples: 
+ * Android _(with java client library)_: [medium-api-android-sample](https://github.com/amardeshbd/medium-api-android-sample)
 
 ### Screenshots
  * Swagger UI ![Swagger UI](https://github.com/amardeshbd/medium-api-specification/blob/master/resources/screenshot_openapi_swagger-ui.png)
