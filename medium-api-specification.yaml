@@ -24,7 +24,7 @@ basePath: /v1
 schemes:
   - https
 
-# Bearer authentication is required.
+# List of security definitions used for API access
 securityDefinitions:
   Bearer:
     type: apiKey
@@ -40,11 +40,12 @@ securityDefinitions:
         Self-issued access tokens do not expire, though they may be revoked by the user at any time.
     name: Authorization
     in: header  
-  medium_oauth:
+  OauthSecurity:
     type: oauth2
     description: First you must register an application on Medium. Then we will supply you a clientId and a clientSecret with which you may access Medium’s API. Each integration should have its own clientId and clientSecret. The clientSecret should be treated like a password and stored securely.
     authorizationUrl: https://medium.com/m/oauth/authorize
-    flow: implicit
+    tokenUrl: https://medium.com/v1/tokens
+    flow: accessCode
     scopes:
       basicProfile: Grants basic access to a user’s profile (not including their email).
       listPublications: Grants the ability to list publications related to the user.
@@ -56,7 +57,7 @@ securityDefinitions:
         
         Integrations are not permitted to request extended scope from users without explicit prior permission from Medium. Attempting to request these permissions through the standard user authentication flow will result in an error if extended scope has not been authorized for an integration.
       
-# TODO - define "oauth2" spec
+
 
 # format of the responses to the client (Accepts)
 produces:
@@ -214,7 +215,8 @@ paths:
         403:
           description: The `publicationId` in request path doesn’t point to a publication that the user can publish into.
         
-
+# TODO Missing API for image endpoint
+# See https://github.com/amardeshbd/medium-api-specification/issues/7
       
 definitions:
   UserResponse:
