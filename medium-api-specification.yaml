@@ -26,7 +26,7 @@ schemes:
 
 # List of security definitions used for API access
 securityDefinitions:
-  Bearer:
+  BearerToken:
     type: apiKey
     description: |
         Self-issued access tokens (described in user-facing copy as integration tokens) are explicitly designed for desktop integrations where implementing browser-based authentication is non-trivial, or software like plugins where it is impossible to secure a client secret. You should not request that a user give you an integration token if you don’t meet these criteria. Users will be cautioned within Medium to treat integration tokens like passwords, and dissuaded from making them generally available.
@@ -71,7 +71,9 @@ paths:
       tags:
         - Users
       security:
-        - Bearer: []
+        - BearerToken: []
+        - OauthSecurity:
+          - basicProfile
       produces:
         - application/json
       responses:
@@ -89,7 +91,9 @@ paths:
       tags:
         - Publications
       security:
-        - Bearer: []
+        - BearerToken: []
+        - OauthSecurity:
+          - listPublications
       produces:
         - application/json
       parameters:
@@ -116,7 +120,9 @@ paths:
         - Publications
         - Users
       security:
-        - Bearer: []
+        - BearerToken: []
+        - OauthSecurity:
+          - listPublications
       produces:
         - application/json
       parameters:
@@ -141,7 +147,9 @@ paths:
         - Users
         - Posts
       security:
-        - Bearer: []
+        - BearerToken: []
+        - OauthSecurity:
+          - publishPost
       produces:
         - application/json
       consumes:
@@ -186,7 +194,9 @@ paths:
         - Posts
         - Publications
       security:
-        - Bearer: []
+        - BearerToken: []
+        - OauthSecurity:
+          - publishPost
       produces:
         - application/json
       consumes:
