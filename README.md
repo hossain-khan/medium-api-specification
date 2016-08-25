@@ -20,8 +20,12 @@ Best way to preview or test API is using **Swagger UI**, **Swagger Editor** or *
 ### Generating Client SDK
 The [swagger-codegen](https://github.com/swagger-api/swagger-codegen) tool can generate client-sdk for different languages. 
 
+Based on [code generator](https://generator.swagger.io) service, following languages are [supported](https://generator.swagger.io/api/gen/clients) by the client generator.
+> "akka-scala", "android", "async-scala", "clojure", "cpprest", "csharp", "CsharpDotNet2", "cwiki", "dart", "dynamic-html", "flash", "go", "groovy", "html", "html2", "java", "javascript", "javascript-closure-angular", "jmeter", "objc", "perl", "php", "python", "qt5cpp", "ruby", "scala", "swagger", "swagger-yaml", "swift", "tizen", "typescript-angular", "typescript-angular2", "typescript-fetch", "typescript-node"
+
+
 Here are few examples: 
- * Android _(with java client library)_: [medium-api-android-sample](https://github.com/amardeshbd/medium-api-android-sample)
+ * Android _(with java based retrofit client library)_: [medium-api-android-sample](https://github.com/amardeshbd/medium-api-android-sample)
 
 ### Screenshots
  * Swagger UI ![Swagger UI](https://github.com/amardeshbd/medium-api-specification/blob/master/resources/screenshot_openapi_swagger-ui.png)
