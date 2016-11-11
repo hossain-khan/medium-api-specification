@@ -27,6 +27,7 @@ Based on [code generator](https://generator.swagger.io) service, following langu
 
 Here are few examples: 
  * Android _(with java based retrofit client library)_: [medium-api-android-sample](https://github.com/amardeshbd/medium-api-android-sample)
+ * Android _(with java based retrofit+RxJava client library)_ : [android-daily-headlines](https://github.com/amardeshbd/android-daily-headlines) - Uses [NYTimes](https://developer.nytimes.com/) _Top Stories V2_ swagger spec to generate [client library](https://github.com/amardeshbd/android-daily-headlines/tree/develop/api-lib/src/main/java/io/swagger/client).
 
 ### Screenshots
  * Swagger UI ![Swagger UI](https://github.com/amardeshbd/medium-api-specification/blob/master/resources/screenshot_openapi_swagger-ui.png)
