@@ -1,3 +1,9 @@
+# UPDATE - Medium.com API is no longer supported.
+------
+> Looks like Medium does not support API access anymore. The post with info was been taken down - https://blog.medium.com/welcome-to-the-medium-api-3418f956552
+
+------
+
 [![https://img.shields.io/badge/OpenAPI-valid-brightgreen.svg](https://img.shields.io/badge/OpenAPI-valid-brightgreen.svg)](http://online.swagger.io/validator?url=https://raw.githubusercontent.com/amardeshbd/medium-api-specification/master/medium-api-specification.yaml) [![Build Status](https://travis-ci.org/amardeshbd/medium-api-specification.svg)](https://travis-ci.org/amardeshbd/medium-api-specification)
 
 Medium.com API Specification
