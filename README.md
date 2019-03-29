@@ -1,6 +1,6 @@
 # UPDATE - Medium.com API is no longer supported.
 ------
-> Looks like Medium does not support API access anymore. The post with info was been taken down - https://blog.medium.com/welcome-to-the-medium-api-3418f956552
+> Looks like Medium does not support API access anymore. The post with API info has been taken down - https://blog.medium.com/welcome-to-the-medium-api-3418f956552 _(Unlisted)_
 
 ------
 
