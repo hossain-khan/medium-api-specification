@@ -52,4 +52,4 @@ testOpenApiSpecValidity() {
 
 
 # Execute shunit2 to run the tests (downloaded via `.travis.yaml`)
-. shunit2-2.1.6/src/shunit2
+. shunit2-2.1.8/shunit2
