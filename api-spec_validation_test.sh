@@ -34,14 +34,14 @@ testOpenApiSpecValidity() {
     expectedOutputSize=${#expectedOutput} 
     specUrl="$githubRawResourceBaseUrl/$githubUsername/$githubProjectId/$BRANCH/$openApiSpecFileName"
     # Now prepare the open API spec file to use the online validator service.
-    validationUrl="http://online.swagger.io/validator/debug?url=$specUrl"
+    validationUrl="https://online.swagger.io/validator/debug?url=$specUrl"
 
     echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
     echo "Validating ENV Variables: TRAVIS_BRANCH=$TRAVIS_BRANCH, PR=$PR, BRANCH=$BRANCH"
     echo "OpenAPI Specification File=$validationUrl"
     echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"    
 
-    validationOutput=$(curl $validationUrl)
+    validationOutput=$(curl -L $validationUrl)
     validationOutputSize=${#validationOutput}
     echo "Testing swagger validation - current output is: $validationOutput"
     echo "Expected valid size: $expectedOutputSize, current output: $validationOutputSize"
